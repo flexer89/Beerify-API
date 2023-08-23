@@ -1,5 +1,5 @@
-from fastapi import APIRouter
-from sqlalchemy import insert, update, select
+from fastapi import APIRouter, HTTPException
+from sqlalchemy import insert, update, select, delete
 from app.models.review import Review
 from app.schemas.review import Review as ReviewSchema
 from app.db.database import database
@@ -15,16 +15,34 @@ async def add_review(name: str, description: str, alcohol: float, rating: float)
     return {"id": last_record_id, "name": name, "rating": rating, "alcohol": alcohol, "description": description}
 
 
-@router.get("/{review_id}")
+@router.get("/get/{review_id}")
 async def get_review(review_id: int):
     query = select(Review).filter(Review.id == review_id)
     response = await database.fetch_one(query)
     return response
 
 
-@router.put("/edit/{review_id}")
-async def update_review(review_id: str, name: str, description: str, alcohol: float, rating: float):
+@router.get("/get/{name}/")
+async def get_review_by_name(name: str):
+    query = select(Review).where(Review.name == name).limit(1)
+    response = await database.fetch_all(query)
+    return response
+
+
+@router.put("/edit/{review_id}/")
+async def update_review(review_id: int, name: str, description: str, alcohol: float, rating: float):
     query = update(Review).where(Review.id == review_id).values(
         name=name, description=description, alcohol=alcohol, rating=rating)
     await database.execute(query)
     return {"id": review_id, "name": name, "rating": rating, "alcohol": alcohol, "description": description}
+
+
+@router.delete("/delete/{review_id}/")
+async def delete_review(review_id: int):
+    query = delete(Review).where(Review.id == review_id)
+    affected_rows = await database.execute(query)
+
+    if affected_rows == 0:
+        raise HTTPException(status_code=404, detail="Review not found")
+
+    return {"message": "Review deleted successfully"}

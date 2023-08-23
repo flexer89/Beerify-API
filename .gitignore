@@ -1,0 +1,18 @@
+# Ignore Python cache folders and files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore environment-specific files
+.env
+.env.*
+
+# Ignore database files
+*.db
+
+# Ignore logs
+*.log
+
+# Ignore virtual environment folders
+venv/
+env/

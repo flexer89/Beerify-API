@@ -1,9 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from sqlalchemy import insert, update, select, delete
 from app.models.review import Review
 from app.schemas.review import Review as ReviewSchema
 from app.db.database import database
-from app.exceptions import NotFoundException
+from app.exceptions.exceptions import NotFoundException, BadValue
 
 router = APIRouter()
 
@@ -14,6 +14,19 @@ async def add_review(name: str, description: str, alcohol: float, rating: float)
         name=name, description=description, alcohol=alcohol, rating=rating)
     last_record_id = await database.execute(query)
     return {"id": last_record_id, "name": name, "rating": rating, "alcohol": alcohol, "description": description}
+
+
+@router.get("/get/all/")
+async def get_reviews(sort_by: str =
+                      Query("rating", description="Sort reviews by", enum=["rating", "alcohol", "name"])):
+
+    if sort_by not in ["rating", "alcohol", "name"]:
+        raise BadValue(f"Provided bad value in sort_by query")
+
+    order_by_column = getattr(Review, sort_by)
+    query = select(Review).order_by(order_by_column)
+    response = await database.fetch_all(query)
+    return response
 
 
 @router.get("/get/{review_id}")

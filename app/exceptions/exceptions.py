@@ -14,6 +14,12 @@ class NotFoundException(BeerifyException):
         super().__init__(status_code=404, detail=detail)
 
 
+class BadValue(BeerifyException):
+    def __init__(self, detail: str):
+        detail = f"Invalid {detail} value"
+        super().__init__(status_code=400, detail=detail)
+
+
 class ValidationException(BeerifyException):
     def __init__(self, field_name: str, reason: str):
         detail = f"Validation failed for field '{field_name}': {reason}"

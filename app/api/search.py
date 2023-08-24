@@ -1,3 +1,5 @@
+from httpx import Response
+from http import HTTPStatus
 from fastapi import APIRouter
 from sqlalchemy import select
 from app.models.review import Review
@@ -8,13 +10,13 @@ router = APIRouter()
 
 
 @router.get("/by-alcohol")
-async def search_by_alcohol(alcohol: float):
+async def search_by_alcohol(alcohol: float) -> Response:
     query = select(Review).where(Review.alcohol == alcohol)
     response = await database.fetch_all(query)
 
     if response == None:
         raise NotFoundException(
-            f"Review with f{alcohol}% of alcohol not found")
+            f"Review with {alcohol}% of alcohol not found")
 
     return response
 

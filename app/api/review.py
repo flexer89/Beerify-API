@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Query
 from sqlalchemy import insert, update, select, delete
 from app.models.review import Review
 from app.schemas.review import Review as ReviewSchema

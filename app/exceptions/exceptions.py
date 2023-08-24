@@ -10,8 +10,7 @@ class BeerifyException(HTTPException):
 
 class NotFoundException(BeerifyException):
     def __init__(self, item_name: str):
-        detail = f"{item_name} not found"
-        super().__init__(status_code=404, detail=detail)
+        super().__init__(status_code=404, detail=item_name)
 
 
 class BadValue(BeerifyException):

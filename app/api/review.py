@@ -3,6 +3,7 @@ from sqlalchemy import insert, update, select, delete
 from app.models.review import Review
 from app.schemas.review import Review as ReviewSchema
 from app.db.database import database
+from app.exceptions import NotFoundException
 
 router = APIRouter()
 
@@ -19,6 +20,10 @@ async def add_review(name: str, description: str, alcohol: float, rating: float)
 async def get_review(review_id: int):
     query = select(Review).filter(Review.id == review_id)
     response = await database.fetch_one(query)
+
+    if response is None:
+        raise NotFoundException(f"Review with ID {review_id} not found")
+
     return response
 
 
@@ -26,6 +31,10 @@ async def get_review(review_id: int):
 async def get_review_by_name(name: str):
     query = select(Review).where(Review.name == name).limit(1)
     response = await database.fetch_all(query)
+
+    if not response:
+        raise NotFoundException(f"Review with name {name} not found")
+
     return response
 
 
@@ -43,6 +52,6 @@ async def delete_review(review_id: int):
     affected_rows = await database.execute(query)
 
     if affected_rows == 0:
-        raise HTTPException(status_code=404, detail="Review not found")
+        raise NotFoundException(f"Review with ID {review_id} not found")
 
     return {"message": "Review deleted successfully"}

@@ -12,7 +12,7 @@ async def search_by_alcohol(alcohol: float):
     query = select(Review).where(Review.alcohol == alcohol)
     response = await database.fetch_all(query)
 
-    if response == None:
+    if 'alcohol' not in response:
         raise NotFoundException(
             f"Review with {alcohol}% of alcohol not found")
 
@@ -24,7 +24,7 @@ async def search_by_rating(rating: float):
     query = select(Review).where(Review.rating == rating)
     response = await database.fetch_all(query)
 
-    if response == None:
+    if 'rating' not in response:
         raise NotFoundException(f"Review with {rating} rating not found")
 
     return response
@@ -36,7 +36,7 @@ async def search_by_desc(desc: str):
 
     response = await database.fetch_all(query)
 
-    if response == None:
+    if 'description' not in response:
         raise NotFoundException(f"Review with {desc} in description not found")
 
     return response

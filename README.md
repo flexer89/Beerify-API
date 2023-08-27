@@ -24,19 +24,14 @@ Beerify API is designed to provide a platform for to manage beer reviews. It uti
 
 ### Traditional way
 1. Clone the repository:
-```bash
+```
 git clone https://github.com/yourusername/beerify-api.git
-cd beerify-api
 ```
-2. Create a virtual environment:
-```python -m venv venv
-source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-```
-3. Install dependencies:
+2. Install dependencies:
 ```
 pip install -r requirements.txt
 ```
-4. run the API server:
+3. run the API server:
 ```
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```

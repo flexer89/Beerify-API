@@ -143,9 +143,33 @@ def test_get_review_by_name(review_id, beer_name, rating_value, alcohol_amout,
         assert response.json() == expected_data
 
 
-def test_update_review():
-    ...
+def test_update_review(review_id, beer_name, rating_value, alcohol_amout,
+                       description):
+
+    expected_data = {
+        "id": review_id,
+        "name": beer_name,
+        "rating": rating_value,
+        "alcohol": alcohol_amout,
+        "description": description,
+    }
+
+    with mock.patch("databases.Database.execute"):
+        response = client.put(
+            f"/review/edit/{review_id}/", params=expected_data)
+
+        assert response.status_code == HTTPStatus.OK
+        assert response.json() == expected_data
 
 
-def test_delete_review():
-    ...
+def test_delete_review(review_id):
+
+    expected_data = {
+        "message": "Review deleted successfully"
+    }
+
+    with mock.patch("databases.Database.execute", return_value=1):
+        response = client.delete(f"/review/delete/{review_id}/")
+
+        assert response.status_code == HTTPStatus.OK
+        assert response.json() == expected_data

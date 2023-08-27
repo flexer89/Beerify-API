@@ -34,3 +34,13 @@ def fixture_added_date():
 @fixture(name="limit")
 def fixture_limit():
     return 9999
+
+
+@fixture(name="year")
+def fixture_year():
+    return 1000
+
+
+@fixture(name="month")
+def fixture_month():
+    return 1000

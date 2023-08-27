@@ -17,20 +17,20 @@ async def add_review(name: str, description: str, alcohol: float, rating: float)
 
 
 @router.get("/get/all/")
-async def get_reviews(sort_by: str =
+async def get_reviews(limit: int, sort_by: str =
                       Query("rating", description="Sort reviews by", enum=["rating", "alcohol", "name"])):
 
     if sort_by not in ["rating", "alcohol", "name"]:
         raise BadValue(f"Provided bad value in sort_by query")
 
     order_by_column = getattr(Review, sort_by)
-    query = select(Review).order_by(order_by_column)
+    query = select(Review).order_by(order_by_column).limit(limit)
     response = await database.fetch_all(query)
     return response
 
 
 @router.get("/get/{review_id}")
-async def get_review(review_id: int):
+async def get_review_by_id(review_id: int):
     query = select(Review).filter(Review.id == review_id)
     response = await database.fetch_one(query)
 
@@ -41,7 +41,7 @@ async def get_review(review_id: int):
 
 
 @router.get("/get/{name}/")
-async def get_review_by_name(name: str):
+async def get_review_by_beer_name(name: str):
     query = select(Review).where(Review.name == name).limit(1)
     response = await database.fetch_all(query)
 

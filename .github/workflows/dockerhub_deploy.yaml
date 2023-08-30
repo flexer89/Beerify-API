@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: flexer89/Beerify-API:latest
+          tags: flexer89/beerify-api:latest

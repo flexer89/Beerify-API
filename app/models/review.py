@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, func
 from app.db.database import Base
 
-class Review(Base):
+class Review(Base): # type: ignore
     __tablename__ = "review"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)

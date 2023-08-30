@@ -23,3 +23,6 @@ jobs:
     - name: Run tests
       run: |
         python -m pytest tests/
+    - name: Run MyPy
+      run: |
+        find . -name "*.py" | xargs mypy

@@ -38,4 +38,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: flexer89/beerify-api:${{ steps.release.outputs.tag_name }}
+          tags: flexer89/beerify-api:latest

@@ -1,9 +1,14 @@
 on:
-  push:
+  pull_request:
     branches:
       - master
-    tags:
-      - v*
+    types:
+      - closed
+    paths:
+      - 'CHANGELOG.md'
+    condition: |
+      startsWith(github.head_ref, 'release-please') &&
+      contains(github.event.pull_request.title, 'chore(master)')
 
 name: Push Image to DockerHub
 jobs:

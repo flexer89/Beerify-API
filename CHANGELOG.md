@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/flexer89/Beerify-API/compare/v1.0.0...v1.0.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* Update release pipeline ([c0cbd32](https://github.com/flexer89/Beerify-API/commit/c0cbd32e9b37caf5a0b63b9b5c3c35d11615567f))
+
 ## 1.0.0 (2023-08-30)
 
 

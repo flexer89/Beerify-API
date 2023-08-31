@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/flexer89/Beerify-API/compare/v1.0.1...v1.1.0) (2023-08-31)
+
+
+### Features
+
+* Update whole pipeline ([fa49b32](https://github.com/flexer89/Beerify-API/commit/fa49b32b9570e594c96bfc62eb77c0d901c0fa85))
+
 ## [1.0.1](https://github.com/flexer89/Beerify-API/compare/v1.0.0...v1.0.1) (2023-08-31)
 
 

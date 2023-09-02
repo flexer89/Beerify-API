@@ -15,7 +15,6 @@ class NotFoundException(BeerifyException):
 
 class BadValue(BeerifyException):
     def __init__(self, detail: str):
-        detail = f"Invalid {detail} value"
         super().__init__(status_code=400, detail=detail)
 
 

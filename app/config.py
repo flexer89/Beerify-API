@@ -7,5 +7,7 @@ class Settings(BaseSettings):
     RATING_RANGE: float = 10.0
     DESC_MIN_LEN: int = 5
     DESC_MAX_LEN: int = 250
+    YEAR_MIN_VALUE: int = 1900
+    YEAR_MAX_VALUE: int = 2100
 
 settings = Settings()

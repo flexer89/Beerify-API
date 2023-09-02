@@ -4,7 +4,8 @@ from app.api.review import router as review_router
 from app.api.search import router as search_router
 from app.db.database import database
 
-app = FastAPI()
+app = FastAPI(description="Beerify API is a FastAPI-based web application for collecting and managing beer reviews.",
+              title="Beerify API")
 
 app.include_router(stats_router, prefix="/stats", tags=["Statistics"])
 app.include_router(review_router, prefix="/review", tags=["Review"])

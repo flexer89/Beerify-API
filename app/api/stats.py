@@ -55,7 +55,7 @@ async def lowest_rated(amount: int):
 @router.get("/reviews-by-year/{year}/", response_model=List[DefaultResponse], summary="Get reviews by year",
             description="Returns reviews from specified year.")
 async def reviews_by_year(year: int):
-    if year > 2100 or year < 1900:
+    if year > settings.YEAR_MAX_VALUE or year < settings.YEAR_MIN_VALUE:
         raise BadValue("The specified year is not within the valid range. Please provide a year between 1900 and 2100.")
     
     query = select(Review).where(extract("year", Review.added) == year)
@@ -66,7 +66,7 @@ async def reviews_by_year(year: int):
 @router.get("/reviews-by-month/{year}/{month}", response_model=List[DefaultResponse], summary="Get reviews by month",
             description="Returns reviews from specified month.")
 async def reviews_by_month(year: int, month: int):
-    if year > 2100 or year < 1900:
+    if year > settings.YEAR_MAX_VALUE or year < settings.YEAR_MIN_VALUE:
         raise BadValue("The specified year is not within the valid range. Please provide a year between 1900 and 2100.")
     elif month > 12 or month < 1:
         raise BadValue("The specified month is not valid. Please provide a month between 1 and 12.")

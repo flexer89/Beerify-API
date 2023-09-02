@@ -6,6 +6,7 @@ from app.db.database import database
 from app.exceptions.exceptions import NotFoundException, BadValue
 from typing import List
 from app.config import settings
+from app.utils.util import *
 
 router = APIRouter()
 
@@ -15,7 +16,7 @@ router = APIRouter()
 async def search_by_alcohol(alcohol: float):
     if alcohol > settings.ALCOHOL_LIMIT or alcohol < 0:
         raise BadValue("The specified alcohol content is not valid. Please provide an alcohol content between 0.0 and 20.0.")
-    elif alcohol % 0.1 != 0:
+    elif not has_one_decimal_place(alcohol):
         raise BadValue("The provided alcohol amount should have at most one decimal place.")
     
     query = select(Review).where(Review.alcohol == alcohol)
@@ -33,7 +34,7 @@ async def search_by_alcohol(alcohol: float):
 async def search_by_rating(rating: float):
     if rating > settings.RATING_RANGE or rating < 0:
         raise BadValue("The provided rating is not valid. Please enter a rating between 0 and 10.0.")
-    elif rating % 0.1 != 0:
+    elif not has_one_decimal_place(rating):
         raise BadValue("The provided rating should have at most one decimal place.")
     
     query = select(Review).where(Review.rating == rating)

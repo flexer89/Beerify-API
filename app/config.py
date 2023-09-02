@@ -9,5 +9,6 @@ class Settings(BaseSettings):
     DESC_MAX_LEN: int = 250
     YEAR_MIN_VALUE: int = 1900
     YEAR_MAX_VALUE: int = 2100
+    NAME_MAX_LEN: int = 50
 
 settings = Settings()

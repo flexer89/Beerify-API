@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.0](https://github.com/flexer89/Beerify-API/compare/v1.1.0...v1.2.0) (2023-09-02)
+
+
+### Features
+
+* Added API description and title ([da5a401](https://github.com/flexer89/Beerify-API/commit/da5a401d404bc6ae7901522121f0a742f2fed404))
+* Added Exceptions in Search and Stats category ([63b78cf](https://github.com/flexer89/Beerify-API/commit/63b78cfe6f6052d5c0b2bc9e905b705395566e61))
+* Added Exceptions in Stats category ([5d8d634](https://github.com/flexer89/Beerify-API/commit/5d8d63456d4d2758d472d4f55efa2241afea58f3))
+* Added Exceptions to Review category ([0107631](https://github.com/flexer89/Beerify-API/commit/0107631d75b2d0bf9adce4340ca9f87625bd7559))
+* Added new Settings and changed fixtures ([6a7668a](https://github.com/flexer89/Beerify-API/commit/6a7668a1ed6996169b017f4582b7e18bb423ca9e))
+* Added Response Models and updated endpoints ([932927a](https://github.com/flexer89/Beerify-API/commit/932927a733902907eb76254ddf6530c8770c4439))
+* Implemented exceptions in Search category ([96aa0d3](https://github.com/flexer89/Beerify-API/commit/96aa0d35b3b8050b53209e676f1356ed1d98e701))
+
+
+### Bug Fixes
+
+* Fix mypy errors ([b61bab0](https://github.com/flexer89/Beerify-API/commit/b61bab0b02a9448dffb79d1e6f9766a6b03a2e30))
+
 ## [1.1.0](https://github.com/flexer89/Beerify-API/compare/v1.0.1...v1.1.0) (2023-08-31)
 
 

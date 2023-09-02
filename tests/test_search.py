@@ -14,16 +14,22 @@ from tests.conftest import (
 client = TestClient(app)
 
 
-def test_search_by_alcohol_found(review_id, beer_name, alcohol_amout):
-    response_data = {"id": review_id,
-                     "name": beer_name, "alcohol": alcohol_amout}
+def test_search_by_alcohol_found(review_id, beer_name, alcohol_amout, rating_value, description, added_date):
+    response_mock = [{
+        "id": review_id,
+        "name": beer_name,
+        "rating": rating_value,
+        "alcohol": alcohol_amout,
+        "description": description,
+        "added": added_date
+    }]
 
-    with mock.patch("databases.Database.fetch_all", return_value=response_data):
+    with mock.patch("databases.Database.fetch_all", return_value=response_mock):
 
         response = client.get(f"/search/by-alcohol?alcohol={alcohol_amout}")
 
         assert response.status_code == HTTPStatus.OK
-        assert response.json() == response_data
+        assert response.json() == response_mock
 
 
 def test_search_by_alcohol_not_found(alcohol_amout):
@@ -36,8 +42,15 @@ def test_search_by_alcohol_not_found(alcohol_amout):
             "detail": f"Review with {alcohol_amout}% of alcohol not found"}
 
 
-def test_search_by_rating_found(review_id, rating_value):
-    response_mock = {"id": review_id, "rating": rating_value}
+def test_search_by_rating_found(review_id, rating_value, beer_name, alcohol_amout, description, added_date):
+    response_mock = [{
+        "id": review_id,
+        "name": beer_name,
+        "rating": rating_value,
+        "alcohol": alcohol_amout,
+        "description": description,
+        "added": added_date
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=response_mock):
         response = client.get(f"/search/by-rating?rating={rating_value}")
@@ -55,14 +68,14 @@ def test_search_by_rating_not_found(rating_value):
 
 def test_search_by_desc_found(review_id, beer_name, rating_value,
                               alcohol_amout, description, added_date):
-    response_mock = {
+    response_mock = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=response_mock):
         response = client.get(f"/search/by-desc?desc={description}")

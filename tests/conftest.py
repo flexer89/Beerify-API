@@ -1,4 +1,5 @@
 from pytest import fixture
+from datetime import datetime
 
 
 @fixture(name="beer_name")
@@ -28,7 +29,9 @@ def fixture_description():
 
 @fixture(name="added_date")
 def fixture_added_date():
-    return "test_added_date"
+    date_format = "%Y-%m-%dT%H:%M:%S"
+    formatted_date = datetime.now().strftime(date_format)
+    return formatted_date
 
 
 @fixture(name="limit")

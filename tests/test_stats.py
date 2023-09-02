@@ -17,7 +17,7 @@ client = TestClient(app)
 
 
 def test_count_reviews():
-    response_data = {"Reviews amount": 1}
+    response_data = {"reviews_amount": 1}
 
     with mock.patch("databases.Database.fetch_val", return_value=1):
 
@@ -28,7 +28,7 @@ def test_count_reviews():
 
 
 def test_average_rating():
-    response_data = {"Average rating": 1}
+    response_data = {"average_rating": 1}
 
     with mock.patch("databases.Database.fetch_val", return_value=1):
 
@@ -40,14 +40,14 @@ def test_average_rating():
 
 def test_top_rated(review_id, beer_name, rating_value,
                    alcohol_amout, description, added_date):
-    expected_data = {
+    expected_data = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 
@@ -59,14 +59,14 @@ def test_top_rated(review_id, beer_name, rating_value,
 
 def test_lowest_rated(review_id, beer_name, rating_value,
                       alcohol_amout, description, added_date):
-    expected_data = {
+    expected_data = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 
@@ -78,14 +78,14 @@ def test_lowest_rated(review_id, beer_name, rating_value,
 
 def test_reviews_by_year(review_id, beer_name, rating_value,
                          alcohol_amout, description, added_date, year):
-    expected_data = {
+    expected_data = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 
@@ -97,14 +97,14 @@ def test_reviews_by_year(review_id, beer_name, rating_value,
 
 def test_reviews_by_month(review_id, beer_name, rating_value,
                           alcohol_amout, description, added_date, year, month):
-    expected_data = {
+    expected_data = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 

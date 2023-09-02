@@ -16,12 +16,13 @@ from tests.conftest import (
 client = TestClient(app)
 
 
-def test_add_review(beer_name, description, alcohol_amout, rating_value, review_id):
+def test_add_review(beer_name, description, alcohol_amout, rating_value, review_id, added_date):
     response_data = {"id": review_id,
                      "name": beer_name,
                      "description": description,
                      "alcohol": alcohol_amout,
-                     "rating": rating_value}
+                     "rating": rating_value,
+                     "added": added_date}
 
     with mock.patch("databases.Database.execute", return_value=review_id):
         params = {
@@ -39,14 +40,15 @@ def test_add_review(beer_name, description, alcohol_amout, rating_value, review_
 def test_get_reviews_by_rating(review_id, beer_name, rating_value, alcohol_amout,
                                description, added_date, limit):
 
-    expected_data = {
-        "id": review_id,
-        "name": beer_name,
-        "rating": rating_value,
-        "alcohol": alcohol_amout,
-        "description": description,
-        "added": added_date
-    }
+    expected_data = [{
+            "id": review_id,
+            "name": beer_name,
+            "rating": rating_value,
+            "alcohol": alcohol_amout,
+            "description": description,
+            "added": added_date,
+        }
+    ]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
         params = {
@@ -62,14 +64,14 @@ def test_get_reviews_by_rating(review_id, beer_name, rating_value, alcohol_amout
 def test_get_reviews_by_alcohol(review_id, beer_name, rating_value, alcohol_amout,
                                 description, added_date, limit):
 
-    expected_data = {
+    expected_data = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
         params = {
@@ -85,14 +87,14 @@ def test_get_reviews_by_alcohol(review_id, beer_name, rating_value, alcohol_amou
 def test_get_reviews_by_name(review_id, beer_name, rating_value, alcohol_amout,
                              description, added_date, limit):
 
-    expected_data = {
+    expected_data = [{
         "id": review_id,
         "name": beer_name,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
         "added": added_date
-    }
+    }]
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
         params = {
@@ -136,7 +138,7 @@ def test_get_review_by_name(review_id, beer_name, rating_value, alcohol_amout,
         "added": added_date
     }
 
-    with mock.patch("databases.Database.fetch_all", return_value=expected_data):
+    with mock.patch("databases.Database.fetch_one", return_value=expected_data):
         response = client.get(f"/review/get/{beer_name}/")
 
         assert response.status_code == HTTPStatus.OK
@@ -144,7 +146,7 @@ def test_get_review_by_name(review_id, beer_name, rating_value, alcohol_amout,
 
 
 def test_update_review(review_id, beer_name, rating_value, alcohol_amout,
-                       description):
+                       description, added_date):
 
     expected_data = {
         "id": review_id,
@@ -152,6 +154,7 @@ def test_update_review(review_id, beer_name, rating_value, alcohol_amout,
         "rating": rating_value,
         "alcohol": alcohol_amout,
         "description": description,
+        "added": added_date
     }
 
     with mock.patch("databases.Database.execute"):

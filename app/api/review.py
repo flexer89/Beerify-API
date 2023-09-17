@@ -46,7 +46,7 @@ async def add_review(name: str, description: str, alcohol: float, rating: float)
     }
 
 
-@router.get("/get/all/", response_model=List[DefaultResponse], summary="Get a list of reviews",
+@router.get("/get/all", response_model=List[DefaultResponse], summary="Get a list of reviews",
             description="Returns a list of reviews with the specified sorting order and limit.")
 async def get_reviews(limit: int, sort_by: str =
                       Query("rating", description="Sort reviews by", enum=["rating", "alcohol", "name"])):
@@ -63,7 +63,7 @@ async def get_reviews(limit: int, sort_by: str =
     return response
 
 
-@router.get("/get/{review_id}", response_model=DefaultResponse, summary="Get review by ID",
+@router.get("/get-by-id/{review_id}", response_model=DefaultResponse, summary="Get review by ID",
             description="Returns a review with the specified ID.")
 async def get_review_by_id(review_id: int):
     if review_id < 1:
@@ -78,7 +78,7 @@ async def get_review_by_id(review_id: int):
     return response
 
 
-@router.get("/get/{name}/", response_model=DefaultResponse, summary="Get review by beer name",
+@router.get("/get-by-name/{name}", response_model=DefaultResponse, summary="Get review by beer name",
             description="Returns a review with the specified beer name.")
 async def get_review_by_beer_name(name: str):
     if len(name) < 0 or len(name) > settings.NAME_MAX_LEN:
@@ -93,7 +93,7 @@ async def get_review_by_beer_name(name: str):
     return response
 
 
-@router.put("/edit/{review_id}/", response_model=DefaultResponse, summary="Edit a review",
+@router.put("/edit/{review_id}", response_model=DefaultResponse, summary="Edit a review",
             description="Edits an existing review with the provided details.")
 async def update_review(review_id: int, name: str, description: str, alcohol: float, rating: float):
     # Validate data:
@@ -125,7 +125,7 @@ async def update_review(review_id: int, name: str, description: str, alcohol: fl
     return {"id": review_id, "name": name, "rating": rating, "alcohol": alcohol, "description": description, "added": date}
 
 
-@router.delete("/delete/{review_id}/", response_model=DeleteResponse, summary="Delete a review",
+@router.delete("/delete/{review_id}", response_model=DeleteResponse, summary="Delete a review",
                description="Deletes a review with the specified ID.")
 async def delete_review(review_id: int):
     query = delete(Review).where(Review.id == review_id)

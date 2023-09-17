@@ -21,7 +21,7 @@ def test_count_reviews():
 
     with mock.patch("databases.Database.fetch_val", return_value=1):
 
-        response = client.get("/stats/count/")
+        response = client.get("/stats/count")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == response_data
@@ -32,7 +32,7 @@ def test_average_rating():
 
     with mock.patch("databases.Database.fetch_val", return_value=1):
 
-        response = client.get("/stats/average-rating/")
+        response = client.get("/stats/average-rating")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == response_data
@@ -51,7 +51,7 @@ def test_top_rated(review_id, beer_name, rating_value,
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 
-        response = client.get(f"/stats/top-rated/1/")
+        response = client.get(f"/stats/top-rated/1")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -70,7 +70,7 @@ def test_lowest_rated(review_id, beer_name, rating_value,
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 
-        response = client.get(f"/stats/lowest-rated/1/")
+        response = client.get(f"/stats/lowest-rated/1")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -89,7 +89,7 @@ def test_reviews_by_year(review_id, beer_name, rating_value,
 
     with mock.patch("databases.Database.fetch_all", return_value=expected_data):
 
-        response = client.get(f"/stats/reviews-by-year/{year}/")
+        response = client.get(f"/stats/reviews-by-year/{year}")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data

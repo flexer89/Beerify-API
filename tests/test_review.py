@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from unittest import mock
 from http import HTTPStatus
 from main import app
-from unittest import mock
 from tests.conftest import (
     fixture_beer_name,
     fixture_alcohol_amount,

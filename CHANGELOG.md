@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://github.com/flexer89/Beerify-API/compare/v1.2.0...v1.3.0) (2023-09-17)
+
+
+### Features
+
+* Added `root` endpoint ([c90f991](https://github.com/flexer89/Beerify-API/commit/c90f99110686624893dd0acd83143a7d81d87ea4))
+* added root endpoint unittest ([57b8d53](https://github.com/flexer89/Beerify-API/commit/57b8d5356983b0b779dffdb8edf07bb9e0ae2334))
+
+
+### Bug Fixes
+
+* [#10](https://github.com/flexer89/Beerify-API/issues/10) added searching for reviews based on a partial description ([d8780ff](https://github.com/flexer89/Beerify-API/commit/d8780ff713a6f26dcc7426a5f545ccce165b8476))
+* [#37](https://github.com/flexer89/Beerify-API/issues/37) refactor endpoints url ([639f72c](https://github.com/flexer89/Beerify-API/commit/639f72c7adcdb0718dd51a86348fa80f15581b02))
+* fix unittest script ([2664fc7](https://github.com/flexer89/Beerify-API/commit/2664fc75dad0016fe886c604e4f59e505a5bca32))
+* update README.md file ([2223f59](https://github.com/flexer89/Beerify-API/commit/2223f59e14cad289ea315f4987ba5e74a85921c3))
+
 ## [1.2.0](https://github.com/flexer89/Beerify-API/compare/v1.1.0...v1.2.0) (2023-09-02)
 
 

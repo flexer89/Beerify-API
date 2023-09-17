@@ -23,15 +23,11 @@ Beerify API is designed to provide a platform for to manage beer reviews. It uti
 ## Usage
 
 ### Traditional way
-1. Clone the repository:
-```
-git clone https://github.com/yourusername/beerify-api.git
-```
-2. Install dependencies:
+1. Install dependencies:
 ```
 pip install -r requirements.txt
 ```
-3. run the API server:
+2. run the API server:
 ```
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
@@ -53,7 +49,7 @@ clear.sh
 ```
 
 ## Documentation
-Access the API documentation at `http://localhost:8000/docs`
+Access the API documentation at `http://localhost:8000/docs` or `http://localhost:8000/redoc`
 
 ## License
 This project is licensed under the MIT License.

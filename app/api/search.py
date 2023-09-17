@@ -49,10 +49,10 @@ async def search_by_rating(rating: float):
 @router.get("/by-desc", response_model=List[DefaultResponse], summary="Search reviews by description",
             description="Returns a list of reviews that have the specified keyword in their description.")
 async def search_by_desc(desc: str):
-    if len(desc) > settings.DESC_MAX_LEN or len(desc) < settings.DESC_MIN_LEN:
-        raise BadValue("The provided review description is not valid. Please enter a description between 5 and 250 characters in length.")
+    if len(desc) > settings.DESC_MAX_LEN:
+        raise BadValue("The provided review description is not valid. Please enter a description below 250 characters in length.")
     
-    query = select(Review).where(Review.description.ilike(f"%{desc}"))
+    query = select(Review).filter(Review.description.like("%{}%".format(desc)))
     response = await database.fetch_all(query)
 
     if not response:

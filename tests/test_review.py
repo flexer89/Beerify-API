@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from unittest import mock
 from http import HTTPStatus
 from main import app
-from unittest import mock
 from tests.conftest import (
     fixture_beer_name,
     fixture_alcohol_amount,
@@ -55,7 +54,7 @@ def test_get_reviews_by_rating(review_id, beer_name, rating_value, alcohol_amout
             "limit": limit,
             "sort_by": "rating"
         }
-        response = client.get("/review/get/all/", params=params)
+        response = client.get("/review/get/all", params=params)
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -78,7 +77,7 @@ def test_get_reviews_by_alcohol(review_id, beer_name, rating_value, alcohol_amou
             "limit": limit,
             "sort_by": "alcohol"
         }
-        response = client.get("/review/get/all/", params=params)
+        response = client.get("/review/get/all", params=params)
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -101,7 +100,7 @@ def test_get_reviews_by_name(review_id, beer_name, rating_value, alcohol_amout,
             "limit": limit,
             "sort_by": "name"
         }
-        response = client.get("/review/get/all/", params=params)
+        response = client.get("/review/get/all", params=params)
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -120,7 +119,7 @@ def test_get_review_by_id(review_id, beer_name, rating_value, alcohol_amout,
     }
 
     with mock.patch("databases.Database.fetch_one", return_value=expected_data):
-        response = client.get(f"/review/get/{review_id}")
+        response = client.get(f"/review/get-by-id/{review_id}")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -139,7 +138,7 @@ def test_get_review_by_name(review_id, beer_name, rating_value, alcohol_amout,
     }
 
     with mock.patch("databases.Database.fetch_one", return_value=expected_data):
-        response = client.get(f"/review/get/{beer_name}/")
+        response = client.get(f"/review/get-by-name/{beer_name}")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -159,7 +158,7 @@ def test_update_review(review_id, beer_name, rating_value, alcohol_amout,
 
     with mock.patch("databases.Database.execute"):
         response = client.put(
-            f"/review/edit/{review_id}/", params=expected_data)
+            f"/review/edit/{review_id}", params=expected_data)
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data
@@ -172,7 +171,7 @@ def test_delete_review(review_id):
     }
 
     with mock.patch("databases.Database.execute", return_value=1):
-        response = client.delete(f"/review/delete/{review_id}/")
+        response = client.delete(f"/review/delete/{review_id}")
 
         assert response.status_code == HTTPStatus.OK
         assert response.json() == expected_data

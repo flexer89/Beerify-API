@@ -10,7 +10,7 @@ from app.config import settings
 router = APIRouter()
 
 
-@router.get("/count/", response_model=CountReviews, summary="Get the number of reviews",
+@router.get("/count", response_model=CountReviews, summary="Get the number of reviews",
             description="Returns the total count of reviews in the database.")
 async def count_reviews():
     query = select(func.count()).select_from(Review)
@@ -18,7 +18,7 @@ async def count_reviews():
     return {"reviews_amount": response}
 
 
-@router.get("/average-rating/", response_model=AverageRating, summary="Get the average rating",
+@router.get("/average-rating", response_model=AverageRating, summary="Get the average rating",
             description="Calculates and returns the average rating of all reviews in the database.")
 async def average_rating():
     query = select(func.avg(Review.rating)).select_from(Review)
@@ -26,7 +26,7 @@ async def average_rating():
     return {"average_rating": response}
 
 
-@router.get("/top-rated/{amount}/", response_model=List[DefaultResponse], summary="Get top rated reviews",
+@router.get("/top-rated/{amount}", response_model=List[DefaultResponse], summary="Get top rated reviews",
             description="Returns the specified number of top rated reviews based on their rating.")
 async def top_rated(amount: int):
     if amount > settings.REVIEW_LIMIT:
@@ -39,7 +39,7 @@ async def top_rated(amount: int):
     return response
 
 
-@router.get("/lowest-rated/{amount}/", response_model=List[DefaultResponse], summary="Get lowest rated reviews",
+@router.get("/lowest-rated/{amount}", response_model=List[DefaultResponse], summary="Get lowest rated reviews",
             description="Returns the specified number of lowest rated reviews based on their rating.")
 async def lowest_rated(amount: int):
     if amount > settings.REVIEW_LIMIT:
@@ -52,7 +52,7 @@ async def lowest_rated(amount: int):
     return response
 
 
-@router.get("/reviews-by-year/{year}/", response_model=List[DefaultResponse], summary="Get reviews by year",
+@router.get("/reviews-by-year/{year}", response_model=List[DefaultResponse], summary="Get reviews by year",
             description="Returns reviews from specified year.")
 async def reviews_by_year(year: int):
     if year > settings.YEAR_MAX_VALUE or year < settings.YEAR_MIN_VALUE:
